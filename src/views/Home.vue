@@ -14,7 +14,7 @@
 
 <script>
 import ItemCard from "@/components/ItemCard.vue";
-// import EventService from "@/services/EventService.js";
+import EventService from "@/services/EventService.js";
 
 export default {
   name: "Home",
@@ -28,39 +28,13 @@ export default {
   },
   methods: {
     fetchItems() {
-      // EventService.getItems()
-      //   .then((response) => {
-      //     this.items = response.data;
-      //   })
-      //   .catch((error) => {
-      //     console.log("There was an error: " + error.response);
-      //   });
-      this.items = [
-        { 
-          id: 1,
-          name: 'heh',
-          description: 'meh',
-          cost: 2500
-        },
-        { 
-          id: 2,
-          name: 'heh',
-          description: 'meh',
-          cost: 2500
-        },
-        { 
-          id: 3,
-          name: 'heh',
-          description: 'meh',
-          cost: 2500
-        },
-        { 
-          id: 4,
-          name: 'heh',
-          description: 'meh',
-          cost: 2500
-        },
-      ]
+      EventService.getItems()
+        .then((response) => {
+          this.items = response.data;
+        })
+        .catch((error) => {
+          console.log("There was an error: " + error.response);
+        });
     },
   },
   created() {

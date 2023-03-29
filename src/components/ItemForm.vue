@@ -1,54 +1,32 @@
 <template>
   <div>
-    <el-button type="primary" @click="submit">Create</el-button>
-    <h2 class="title">{{ header }}</h2>
-    <textarea v-model="item.body" class="item" />
+    <h2 class="title">{{ item.name }}</h2>
+    <div class="description">{{ item.description }}</div>
   </div>
 </template>
 
 <script>
-import EventService from "@/services/EventService.js";
+// import EventService from "@/services/EventService.js";
 
 export default {
+  props: { 
+    item: Object
+  },
   data() {
-    return {
-      item: {
-        title: "",
-        body: "",
-        attachments: null,
-        user: 1,
-      },
-      rules: {
-        body: [{ required: true, message: "Body required.", trigger: "blur" }],
-      },
-    };
+    return { };
   },
   methods: {
-    setTitle() {
-      this.item.title = this.header;
-    },
-    submit() {
-      this.setTitle();
-      this.item.body = this.item.body.slice(this.header.length + 1)
-      EventService.createItem(this.item)
-        .then((response) => {
-          if (response.status == 200) {
-            this.$router.push({
-              name: "Item",
-              params: { id: response.data.id },
-            });
-          }
-        })
-        .catch((error) => {
-          console.log("There was an error: ", error);
-        });
-    },
+    // fetchItem() {
+    //   EventService.getItem(1)
+    //     .then((response) => {
+    //       this.items = response.data;
+    //     })
+    //     .catch((error) => {
+    //       console.log("There was an error: " + error.response);
+    //     });
+    // },
   },
-  computed: {
-    header: function() {
-      return this.item.body.split("\n")[0];
-    },
-  },
+  computed: {  },
 };
 </script>
 

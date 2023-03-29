@@ -7,17 +7,19 @@
           class="image"
         />
       </el-col>
-      <el-col :span="12">
-        <h1 class="title">{{ item.name }}</h1>
+      <el-col :span="10">
+        <h2 class="title">{{ item.name }}</h2>
         <br />
-        <div v-markdown>
+        <div>
           {{ item.description }}
         </div>
         <br />
 
+        <el-button>Buy</el-button>
+
       </el-col>
     </el-row>
-    <el-row>
+    <!-- <el-row>
       <el-col :offset="6" :span="12">
         <hr />
         <div>{{ commentsTotal }} Comments</div>
@@ -30,44 +32,44 @@
           @updateComments="fetchComments"
         />
       </el-col>
-    </el-row>
+    </el-row> -->
   </div>
 </template>
 
 <script>
 import EventService from "@/services/EventService.js";
-import Comment from "@/components/Comment.vue";
-import CommentForm from "@/components/CommentForm.vue";
+// import Comment from "@/components/Comment.vue";
+// import CommentForm from "@/components/CommentForm.vue";
 
 export default {
   props: ["id"],
   data() {
     return {
       item: {},
-      commentsTotal: 0,
+      // commentsTotal: 0,
     };
   },
   components: {
-    Comment,
-    CommentForm,
+    // Comment,
+    // CommentForm,
   },
   methods: {
-    fetchComments() {
-      EventService.getComments(this.id)
-        .then((response) => {
-          this.item.comments = response.data;
-          this.commentsTotal = this.item.comments.length;
-        })
-        .catch((error) => {
-          console.log("There was an error: ", error.response);
-        });
-    },
+    // fetchComments() {
+    //   EventService.getComments(this.id)
+    //     .then((response) => {
+    //       this.item.comments = response.data;
+    //       this.commentsTotal = this.item.comments.length;
+    //     })
+    //     .catch((error) => {
+    //       console.log("There was an error: ", error.response);
+    //     });
+    // },
   },
   created() {
     EventService.getItem(this.id)
       .then((response) => {
         this.item = response.data;
-        this.commentsTotal = this.item.comments.length;
+        // this.commentsTotal = this.item.comments.length;
       })
       .catch((error) => {
         console.log("There was an error: ", error.response);

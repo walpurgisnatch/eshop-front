@@ -5,8 +5,8 @@
           class="image"
         />
     <div style="padding: 14px">
-      <el-button type="text" @click="handle">{{ item.name }}</el-button>
-      <div class="desctiption">{{ item.description }}</div>   
+      <el-button type="text" @click="handle" :item="item">{{ item.name }}</el-button>
+      <div class="description">{{ item.description }}</div>   
       <div class="cost">{{ item.cost }}</div>          
     </div>
   </el-card>
