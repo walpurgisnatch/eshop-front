@@ -15,7 +15,7 @@
         </div>
         <br />
 
-        <el-button>Buy</el-button>
+        <el-button @click='toCart'>Buy</el-button>
 
       </el-col>
     </el-row>
@@ -38,6 +38,7 @@
 
 <script>
 import EventService from "@/services/EventService.js";
+import { mapActions } from 'vuex'
 // import Comment from "@/components/Comment.vue";
 // import CommentForm from "@/components/CommentForm.vue";
 
@@ -64,6 +65,10 @@ export default {
     //       console.log("There was an error: ", error.response);
     //     });
     // },
+    toCart() {
+      this.addItem(this.item)
+    },
+    ...mapActions('cart', ['addItem'])
   },
   created() {
     EventService.getItem(this.id)
