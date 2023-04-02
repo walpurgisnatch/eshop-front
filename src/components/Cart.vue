@@ -1,7 +1,8 @@
 <template>
   <el-row>
-    <el-icon :size="36" color="">
-      <ShoppingCart />
+    <el-icon :size="36" class="icon">
+      <ShoppingCart v-if="itemsCount == 0" />
+      <ShoppingCartFull v-else />
     </el-icon>
     <div class='count'>{{ itemsCount }}</div>
   </el-row>
@@ -18,5 +19,9 @@ export default {
 <style scoped>
 .count {
   font-size: 15px;
+}
+
+.icon {
+  height: auto;
 }
 </style>

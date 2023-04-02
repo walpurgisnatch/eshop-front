@@ -44,7 +44,7 @@ body {
 }
 
 #app {
-  margin: 10% 5% 50px;
+  margin: 0 5% 0;
 }
 
 .footer {

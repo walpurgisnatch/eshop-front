@@ -1,13 +1,14 @@
 <template>
   <div>
     <el-row :gutter="20">
-      <el-col :offset="2" :span="12">
-        <img
-          src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+      <el-col class="centered" :offset="2" :span="14">
+        <el-image
+          src="https://twinfinite.net/wp-content/uploads/2022/11/Chainsaw-Man-Anime-Makima-Staring-down-at-Denji-Screenshot.jpg?fit=1200%2C675"
           class="image"
+          fit="cover"
         />
       </el-col>
-      <el-col :span="10">
+      <el-col :span="8">
         <h2 class="title">{{ item.name }}</h2>
         <br />
         <div>
@@ -15,7 +16,7 @@
         </div>
         <br />
 
-        <el-button @click='toCart'>Buy</el-button>
+        <el-button class="buy-button" @click='toCart'>Buy</el-button>
 
       </el-col>
     </el-row>
@@ -86,5 +87,22 @@ export default {
 <style scoped>
 .title {
   text-align: center;
+}
+
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 450px;
+  height: 450px;
+}
+
+.buy-button {
+  width: 250px;
+  height: 50px;
+  margin-left: 50px;
 }
 </style>
