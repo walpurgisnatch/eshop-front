@@ -17,6 +17,7 @@
           v-model="count"
           :min="1"
           :max="10"
+          @click="prevent"
           @change="handleChange"
           class="count"
         />
@@ -39,6 +40,11 @@ export default {
   props: {
     item: Object,
   },
+  data() {
+    return {
+      count: this.item.count
+    }
+  },
   methods: {
     deleteItem(e) {
       e.stopPropagation();
@@ -47,13 +53,14 @@ export default {
     itemPage() {
       this.$router.push({ name: "Item", params: { id: this.item.id } });
     },
-    ...mapActions("cart", ["removeItem"]),
-  },
-  computed: {
-    count() {
-      return this.item.count;
+    prevent(e) {
+      e.stopPropagation();
     },
-  },
+    handleChange() {
+      this.changeCount({ id: this.item.id, count: this.count })
+    },
+    ...mapActions("cart", ["removeItem", "changeCount"]),
+  }
 };
 </script>
 

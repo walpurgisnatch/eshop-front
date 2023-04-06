@@ -11,6 +11,9 @@ export const mutations = {
   INC_COUNT(state, id) {
     state.items.find((item) => item.id == id).count++
   },
+  SET_COUNT(state, { id, count }) {
+    state.items.find((item) => item.id == id).count = count
+  },
   REMOVE_ITEM(state, id) {
     state.items = state.items.filter( (item) => item.id != id )
   },
@@ -28,6 +31,9 @@ export const actions = {
       item.count = 1
       commit('PUSH_ITEM', item)
     }
+  },
+  changeCount({ commit }, { id, count }) {
+    commit('SET_COUNT', { id, count })
   },
   removeItem({ commit }, id) {
     commit('REMOVE_ITEM', id)
