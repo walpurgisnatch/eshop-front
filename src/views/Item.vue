@@ -11,14 +11,24 @@
       <el-col :span="8">
         <h2 class="title">{{ item.name }}</h2>
         <br />
-        <div>
-          {{ item.description }}
-        </div>
+        <div>Chars</div>
         <br />
 
-        <el-button class="buy-button" @click='toCart'>Buy</el-button>
-
+        <el-input-number
+          v-model="count"
+          :min="1"
+          :max="10"
+          @click="prevent"
+          @change="handleChange"
+          class="count"
+        />
+        <el-button class="buy-button" @click="toCart">Buy</el-button>
       </el-col>
+    </el-row>
+    <el-row>
+      <div class="description">
+        {{ item.description }}
+      </div>
     </el-row>
     <!-- <el-row>
       <el-col :offset="6" :span="12">
@@ -39,7 +49,7 @@
 
 <script>
 import EventService from "@/services/EventService.js";
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 // import Comment from "@/components/Comment.vue";
 // import CommentForm from "@/components/CommentForm.vue";
 
@@ -48,6 +58,7 @@ export default {
   data() {
     return {
       item: {},
+      count: 1,
       // commentsTotal: 0,
     };
   },
@@ -67,9 +78,9 @@ export default {
     //     });
     // },
     toCart() {
-      this.addItem(this.item)
+      this.addItem({ item: this.item, count: this.count });
     },
-    ...mapActions('cart', ['addItem'])
+    ...mapActions("cart", ["addItem"]),
   },
   created() {
     EventService.getItem(this.id)
@@ -95,9 +106,18 @@ export default {
   justify-content: center;
 }
 
+.description {
+  margin: 25px 10% 0;
+}
+
 .image {
   width: 450px;
   height: 450px;
+}
+
+.count {
+  width: 250px;
+  margin: 0 0 25px 50px;
 }
 
 .buy-button {

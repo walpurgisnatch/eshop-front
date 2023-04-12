@@ -2,13 +2,21 @@
   <div class="home">
     <el-row :gutter="20">
       <ItemCard
-          class="itemCard"
-          v-for="item in items"
-          :key="item.id"
-          :item="item"
-          @updateItems="fetchItems"
-        />
+        class="itemCard"
+        v-for="item in items"
+        :key="item.id"
+        :item="item"
+        @updateItems="fetchItems"
+      />
     </el-row>
+    <el-pagination
+      class="pagination"
+      hide-on-single-page="true"
+      @current-change="pagination"
+      :page-size="pageSize"
+      :page-count="pages"
+      layout="prev, pager, next"
+    />
   </div>
 </template>
 
@@ -24,21 +32,27 @@ export default {
   data() {
     return {
       items: [],
+      pages: 2,
+      pageSize: 5
     };
   },
   methods: {
-    fetchItems() {
-      EventService.getItems()
+    fetchItems(limit, offset) {
+      EventService.getItems(limit, offset-1)
         .then((response) => {
-          this.items = response.data;
+          this.items = response.data[0];
+          this.pages = response.data[1].pages;
         })
         .catch((error) => {
           console.log("There was an error: " + error.response);
         });
     },
+    pagination(num) {
+      this.fetchItems(this.pageSize, num)
+    }
   },
   created() {
-    this.fetchItems();
+    this.fetchItems(this.pageSize, 1);
   },
 };
 </script>
@@ -56,5 +70,11 @@ export default {
 
 .itemCard {
   margin: 15px;
+}
+
+.pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 </style>

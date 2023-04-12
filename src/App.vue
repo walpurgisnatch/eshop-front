@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <NavBar />
     <NotificationContainer />
     <router-view :key="$route.fullPath" />
@@ -47,10 +47,14 @@ body {
   margin: 0 5% 0;
 }
 
+.main {
+  min-height: 900px;
+}
+
 .footer {
   width: 100%;
   height: 50px;
   padding: 0;
-  margin: 150px 0 0 0;
+  margin: 25px 0 0 0;
 }
 </style>

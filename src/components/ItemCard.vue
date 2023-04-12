@@ -31,7 +31,7 @@ export default {
     },
     toCart(e) {
       e.stopPropagation()
-      this.addItem(this.item)
+      this.addItem({item: this.item})
     },
     ...mapActions('cart', ['addItem'])
   }
