@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <el-row :gutter="20">
-      <ItemCard
-        class="itemCard"
-        v-for="item in items"
-        :key="item.id"
-        :item="item"
-        @updateItems="fetchItems"
+      <ArticleCard
+        class="articleCard"
+        v-for="article in articles"
+        :key="article.id"
+        :article="article"
+        @updatearticles="fetchArticles"
       />
     </el-row>
     <el-pagination
@@ -21,38 +21,38 @@
 </template>
 
 <script>
-import ItemCard from "@/components/ItemCard.vue";
+import ArticleCard from "@/components/ArticleCard.vue";
 import EventService from "@/services/EventService.js";
 
 export default {
-  name: "Home",
+  name: "Articles",
   components: {
-    ItemCard,
+    ArticleCard,
   },
   data() {
     return {
-      items: [],
+      articles: [],
       pages: 2,
       pageSize: 5
     };
   },
   methods: {
-    fetchItems(limit, offset) {
-      EventService.getItems(limit, offset-1)
+    fetchArticles(limit, offset) {
+      EventService.getArticles(limit, offset-1)
         .then((response) => {
-          this.items = response.data[0];
+          this.articles = response.data[0];
           this.pages = response.data[1];
         })
         .catch((error) => {
-          console.log("There was an error: " + error.response);
+          console.log("There was an error: " + error);
         });
     },
     pagination(num) {
-      this.fetchItems(this.pageSize, num)
+      this.fetchArticles(this.pageSize, num)
     }
   },
   created() {
-    this.fetchItems(this.pageSize, 1);
+    this.fetchArticles(this.pageSize, 1);
   },
 };
 </script>
@@ -68,7 +68,7 @@ export default {
   height: 500px;
 }
 
-.itemCard {
+.articleCard {
   margin: 15px;
 }
 

@@ -14,6 +14,7 @@
         <div>Chars</div>
         <br />
 
+        <div class="cost">{{ item.cost }} P</div>
         <el-input-number
           v-model="count"
           :min="1"
@@ -22,7 +23,7 @@
           @change="handleChange"
           class="count"
         />
-        <el-button class="buy-button" @click="toCart">Buy</el-button>
+        <el-button class="buy-button" @click="toCart">ADD TO CART</el-button>
       </el-col>
     </el-row>
     <el-row>
@@ -30,28 +31,28 @@
         {{ item.description }}
       </div>
     </el-row>
-    <!-- <el-row>
+    <el-row>
       <el-col :offset="6" :span="12">
         <hr />
         <div>{{ commentsTotal }} Comments</div>
         <br />
         <CommentForm :item="item.id" @updateComments="fetchComments" />
         <Comment
-          v-for="comment in item.comments"
+          v-for="comment in comments"
           :key="comment.id"
           :comment="comment"
           @updateComments="fetchComments"
         />
       </el-col>
-    </el-row> -->
+    </el-row>
   </div>
 </template>
 
 <script>
 import EventService from "@/services/EventService.js";
 import { mapActions } from "vuex";
-// import Comment from "@/components/Comment.vue";
-// import CommentForm from "@/components/CommentForm.vue";
+import Comment from "@/components/Comment.vue";
+import CommentForm from "@/components/CommentForm.vue";
 
 export default {
   props: ["id"],
@@ -59,24 +60,25 @@ export default {
     return {
       item: {},
       count: 1,
-      // commentsTotal: 0,
+      comments: [],
+      commentsTotal: 0,
     };
   },
   components: {
-    // Comment,
-    // CommentForm,
+    Comment,
+    CommentForm,
   },
   methods: {
-    // fetchComments() {
-    //   EventService.getComments(this.id)
-    //     .then((response) => {
-    //       this.item.comments = response.data;
-    //       this.commentsTotal = this.item.comments.length;
-    //     })
-    //     .catch((error) => {
-    //       console.log("There was an error: ", error.response);
-    //     });
-    // },
+    fetchComments() {
+      EventService.getCommentsItem(this.id)
+        .then((response) => {
+          this.comments = response.data;
+          this.commentsTotal = this.comments.length;
+        })
+        .catch((error) => {
+          console.log("There was an error: ", error);
+        });
+    },
     toCart() {
       this.addItem({ item: this.item, count: this.count });
     },
@@ -86,10 +88,10 @@ export default {
     EventService.getItem(this.id)
       .then((response) => {
         this.item = response.data;
-        // this.commentsTotal = this.item.comments.length;
+        this.fetchComments();
       })
       .catch((error) => {
-        console.log("There was an error: ", error.response);
+        console.log("There was an error: ", error);
       });
   },
 };
@@ -97,7 +99,11 @@ export default {
 
 <style scoped>
 .title {
-  text-align: center;
+  /* text-align: center; */
+}
+
+.cost {
+  font-size: 25px;
 }
 
 .centered {
@@ -107,7 +113,7 @@ export default {
 }
 
 .description {
-  margin: 25px 10% 0;
+  margin: 25px 10% 50px;
 }
 
 .image {

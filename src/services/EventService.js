@@ -38,8 +38,27 @@ export default {
   deleteItem(item) {
     return apiClient.delete("/api/item/" + item);
   },
-  getComments(item) {
-    return apiClient.get("/api/comments/" + item);
+  getArticles(limit, offset) {
+    if (limit) {
+      return apiClient.get("/api/articles?limit=" + limit + "&offset=" + offset);
+    } else {
+      return apiClient.get("/api/articles?");
+    }
+  },
+  getArticle(id) {
+    return apiClient.get("/api/article/" + id);
+  },
+  createArticle(article) {
+    return apiClient.post("/api/articles", article);
+  },
+  deleteArticle(article) {
+    return apiClient.delete("/api/article/" + article);
+  },
+  getCommentsArticle(article) {
+    return apiClient.get(`/api/article/${article}/comments`);
+  },
+  getCommentsItem(item) {
+    return apiClient.get(`/api/item/${item}/comments`);
   },
   createComment(comment) {
     return apiClient.post("/api/comments", comment);

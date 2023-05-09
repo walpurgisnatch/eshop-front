@@ -1,24 +1,9 @@
 <template>
-  <el-form :model="form" label-width="120px">
-    <el-form-item label="Name">
-      <el-input v-model="item.name" placeholder="Please input" clearable />
-    </el-form-item>
-    <el-form-item label="Description">
-      <el-input
-        v-model="item.description"
-        :rows="2"
-        type="textarea"
-        placeholder="Please input"
-      />
-    </el-form-item>
-    <el-form-item label="Cost">
-      <el-input-number v-model="item.cost" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submit">Create</el-button>
-      <el-button>Cancel</el-button>
-    </el-form-item>
-  </el-form>
+  <div>
+    <el-input v-model="article.title" placeholder="Title" clearable />
+    <textarea v-model="article.body" class="body" />
+    <el-button type="primary" @click="submit">Create</el-button>
+  </div>
 </template>
 
 <script>
@@ -27,20 +12,23 @@ import EventService from "@/services/EventService.js";
 export default {
   data() {
     return {
-      item: {
-        name: "",
-        description: "",
-        cost: 0
+      article: {
+        title: "",
+        body: "",
+        attachments: null
+      },
+      rules: {
+        body: [{ required: true, message: "Body required.", trigger: "blur" }],
       },
     };
   },
   methods: {
     submit() {
-     EventService.createItem(this.item)
+      EventService.createArticle(this.article)
         .then((response) => {
           if (response.status == 201) {
             this.$router.push({
-              name: "Item",
+              name: "Article",
               params: { id: response.data },
             });
           }
@@ -50,7 +38,7 @@ export default {
         });
     },
   },
-  computed: {},
+  computed: {  },
 };
 </script>
 
@@ -59,14 +47,14 @@ export default {
   text-align: center;
   margin-bottom: 50px;
 }
-.item {
+.article {
   margin: 0 25px 25px;
   height: 400px;
   width: 100%;
   border: none;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
 }
-.item:focus {
+.article:focus {
   border: none;
   outline: none;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);

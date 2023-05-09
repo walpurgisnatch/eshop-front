@@ -8,15 +8,15 @@
           fit="cover"
         />
       </el-col>
-      <el-col class="centered" :span="14">
+      <el-col class="centered" :span="13">
         <div class="name">{{ item.name }}</div>
       </el-col>
-      <el-col :span="4">
+      <el-col :span="5">
         <div class="cost">{{ item.cost }}</div>
         <el-input-number
           v-model="count"
           :min="1"
-          :max="10"
+          :max="100"
           @click="prevent"
           @change="handleChange"
           class="count"
@@ -95,6 +95,6 @@ export default {
 }
 
 .count {
-  width: 100px;
+  width: 125px;
 }
 </style>

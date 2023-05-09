@@ -32,13 +32,15 @@ import EventService from "@/services/EventService.js";
 import { mapState } from "vuex";
 
 export default {
-  props: ["item"],
+  props: ["item", "article"],
   data() {
     return {
       comment: {
         username: "",
         body: "",
-        item: 0,
+        item: null,
+        article: null,
+        response: null,
       },
       rules: {
         body: [{ required: true, message: "Body required.", trigger: "blur" }],
@@ -49,7 +51,11 @@ export default {
     submit() {
       this.$refs["comment"].validate((valid) => {
         if (valid) {
-          this.comment.item = this.item;
+          if (this.item) {
+            this.comment.item = this.item;
+          } else {
+            this.comment.article = this.article;
+          }
           if (this.comment.username == "") {
             if (this.user && this.user.name != null) {
               this.comment.username = this.user.name;

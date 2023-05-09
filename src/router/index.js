@@ -30,9 +30,25 @@ const routes = [
     props: true
   },
   {
-    path: '/item/create',
+    path: '/items/create',
     name: 'CreateItem',
     component: () => import('../views/CreateItem.vue')
+  },
+  {
+    path: '/articles',
+    name: 'Articles',
+    component: () => import('../views/Articles.vue')
+  },
+  {
+    path: '/article/:id',
+    name: 'Article',
+    component: () => import('../views/Article.vue'),
+    props: true
+  },
+  {
+    path: '/articles/create',
+    name: 'CreateArticle',
+    component: () => import('../views/CreateArticle.vue')
   },
   {
     path: '/:catchAll(.*)',
