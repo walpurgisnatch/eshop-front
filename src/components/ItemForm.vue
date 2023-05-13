@@ -1,16 +1,30 @@
 <template>
   <el-form :model="form" label-width="120px">
     <el-form-item label="Name">
-      <el-input v-model="item.name" placeholder="Please input" clearable />
+      <el-input v-model="item.name" placeholder="" clearable />
     </el-form-item>
     <el-form-item label="Description">
       <el-input
         v-model="item.description"
         :rows="2"
         type="textarea"
-        placeholder="Please input"
+        placeholder=""
       />
     </el-form-item>
+    <el-form-item label="Pictures">
+      <el-upload
+        v-model:file-list="fileList"
+        action="http://localhost:5000/api/items/photos"
+        list-type="picture-card"
+        :on-preview="handlePictureCardPreview"
+        :on-remove="handleRemove"
+      >
+        <el-icon><Plus /></el-icon>
+      </el-upload>
+    </el-form-item>
+    <el-dialog v-model="dialogVisible">
+      <img w-full :src="dialogImageUrl" alt="Preview Image" />
+    </el-dialog>
     <el-form-item label="Cost">
       <el-input-number v-model="item.cost" />
     </el-form-item>
@@ -23,6 +37,7 @@
 
 <script>
 import EventService from "@/services/EventService.js";
+import { ref } from "vue";
 
 export default {
   data() {
@@ -32,11 +47,15 @@ export default {
         description: "",
         cost: 0
       },
+      fileList: [],
+      dialogImageUrl: ref(''),
+      dialogVisible: ref(false),
     };
   },
   methods: {
     submit() {
-     EventService.createItem(this.item)
+      this.item.pictures = this.fileList.map(f => f.name).join('; ')
+      EventService.createItem(this.item)
         .then((response) => {
           if (response.status == 201) {
             this.$router.push({
@@ -48,6 +67,13 @@ export default {
         .catch((error) => {
           console.log("There was an error: ", error);
         });
+    },
+    handleRemove(uploadFile, uploadFiles) {
+      console.log(uploadFile, uploadFiles);
+    },
+    handlePictureCardPreview(uploadFile) {
+      this.dialogImageUrl = uploadFile.url;
+      this.dialogVisible = true;
     },
   },
   computed: {},

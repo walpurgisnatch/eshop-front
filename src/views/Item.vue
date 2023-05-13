@@ -1,14 +1,14 @@
 <template>
   <div>
     <el-row :gutter="20">
-      <el-col class="centered" :offset="2" :span="14">
-        <el-image
-          src="https://twinfinite.net/wp-content/uploads/2022/11/Chainsaw-Man-Anime-Makima-Staring-down-at-Denji-Screenshot.jpg?fit=1200%2C675"
-          class="image"
-          fit="cover"
-        />
+      <el-col class="centered" :offset="1" :span="14">
+        <el-carousel class="carousel" trigger="click" height="450px">
+          <el-carousel-item v-for="picture in item.pictures" :key="picture">
+            <el-image class="carousel-item justify-center" fit="cover" :src="picture" />
+          </el-carousel-item>
+        </el-carousel>
       </el-col>
-      <el-col :span="8">
+      <el-col :offset="1" :span="8">
         <h2 class="title">{{ item.name }}</h2>
         <br />
         <div>Chars</div>
@@ -116,9 +116,13 @@ export default {
   margin: 25px 10% 50px;
 }
 
-.image {
-  width: 450px;
+.carousel {
+  width: 550px;
+}
+
+.carousel-item {
   height: 450px;
+  width: 550px;
 }
 
 .count {

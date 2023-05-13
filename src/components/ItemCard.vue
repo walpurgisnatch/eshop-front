@@ -2,7 +2,7 @@
   <el-card class="box-card" shadow="hover" @click="handle" :item="item">
     <el-image
       class='image'
-      src='https://twinfinite.net/wp-content/uploads/2022/11/Chainsaw-Man-Anime-Makima-Staring-down-at-Denji-Screenshot.jpg?fit=1200%2C675'
+      :src='item.thumbnail'
       fit='cover'
     />
     <div class="cost">{{ item.cost }}</div>

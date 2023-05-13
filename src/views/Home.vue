@@ -33,7 +33,7 @@ export default {
     return {
       items: [],
       pages: 2,
-      pageSize: 5
+      pageSize: 10
     };
   },
   methods: {
