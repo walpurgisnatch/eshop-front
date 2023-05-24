@@ -27,7 +27,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <div class="description">
+      <div class="description" v-markdown>
         {{ item.description }}
       </div>
     </el-row>

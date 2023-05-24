@@ -51,6 +51,11 @@ const routes = [
     component: () => import('../views/CreateArticle.vue')
   },
   {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/Admin')
+  },
+  {
     path: '/:catchAll(.*)',
     name: '404',
     component: () => import('../views/404.vue')

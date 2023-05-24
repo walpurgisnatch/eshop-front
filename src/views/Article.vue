@@ -4,7 +4,7 @@
       <el-col :offset="6" :span="12">
         <h1 class="title">{{ article.title }}</h1>
         <br />
-        <div>
+        <div v-markdown>
           {{ article.body }}
         </div>
         <br />
