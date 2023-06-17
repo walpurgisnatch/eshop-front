@@ -10,8 +10,8 @@
         />
       </el-col>
       <el-col class="centered" :span="8">
-        <el-button class="button" text @click="clearCart">Proceed</el-button>
-        <el-button class="button" text @click="clearCart">Clear Items</el-button>
+        <el-button class="button" text @click="clearItems">Proceed</el-button>
+        <el-button class="button" text @click="clearItems">Clear Items</el-button>
       </el-col>
       <div class="total">Total cost {{ totalCost }}</div>
     </el-row>
@@ -28,9 +28,6 @@ export default {
     CartItem,
   },
   methods: {
-    clearCart() {
-      this.clearItems();
-    },
     ...mapActions("cart", ["clearItems"]),
   },
   computed: {

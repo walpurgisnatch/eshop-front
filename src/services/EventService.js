@@ -22,9 +22,11 @@ export default {
   getUser(token) {
     return apiClient.get("/api/user?token=" + token);
   },
-  getItems(limit, offset) {
+  getItems(limit, offset, filters) {
     if (limit) {
-      return apiClient.get("/api/items?limit=" + limit + "&offset=" + offset);
+      return apiClient.get("/api/items", {
+        params: { limit: limit, offset: offset, filters: filters },
+      });
     } else {
       return apiClient.get("/api/items?");
     }
@@ -40,7 +42,9 @@ export default {
   },
   getArticles(limit, offset) {
     if (limit) {
-      return apiClient.get("/api/articles?limit=" + limit + "&offset=" + offset);
+      return apiClient.get(
+        "/api/articles?limit=" + limit + "&offset=" + offset
+      );
     } else {
       return apiClient.get("/api/articles?");
     }

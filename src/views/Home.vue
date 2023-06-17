@@ -11,9 +11,9 @@
     </el-row>
     <el-pagination
       class="pagination"
-      hide-on-single-page="true"
+      :hide-on-single-page="true"
       @current-change="pagination"
-      :page-size="pageSize"
+      :page-size="limit"
       :page-count="pages"
       layout="prev, pager, next"
     />
@@ -22,7 +22,8 @@
 
 <script>
 import ItemCard from "@/components/ItemCard.vue";
-import EventService from "@/services/EventService.js";
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "Home",
@@ -31,28 +32,19 @@ export default {
   },
   data() {
     return {
-      items: [],
-      pages: 2,
-      pageSize: 10
     };
   },
   methods: {
-    fetchItems(limit, offset) {
-      EventService.getItems(limit, offset-1)
-        .then((response) => {
-          this.items = response.data[0];
-          this.pages = response.data[1];
-        })
-        .catch((error) => {
-          console.log("There was an error: " + error.response);
-        });
-    },
+    ...mapActions("items", ["fetchItems"]),
     pagination(num) {
-      this.fetchItems(this.pageSize, num)
-    }
+      this.fetchItems(num);
+    },
   },
   created() {
-    this.fetchItems(this.pageSize, 1);
+    this.fetchItems(1);
+  },
+  computed: {
+    ...mapGetters("items", ["items", "pages"]),
   },
 };
 </script>

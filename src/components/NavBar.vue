@@ -9,13 +9,13 @@
     <el-menu-item class="item" index="/">Home</el-menu-item>
     <el-menu-item class="item" index="/articles">Articles</el-menu-item>
     <el-menu-item class="item right-one" index="/about">About</el-menu-item>
-    <el-menu-item class="item">
-      <el-input v-model="search" class="search" placeholder="Type something">
+    <div class="item">
+      <el-input v-model="search" :onchange="filter" class="search" placeholder="Type something">
         <template #prefix>
           <el-icon class="el-input__icon"><search /></el-icon>
         </template>
       </el-input>
-    </el-menu-item>
+    </div>
     <el-menu-item class="item" index="/cart"><Cart /></el-menu-item>
   </el-menu>
 </template>
@@ -23,6 +23,7 @@
 <script>
 import Cart from "@/components/Cart.vue";
 import { Search } from "@element-plus/icons-vue";
+import { mapActions } from 'vuex';
 
 export default {
   components: {
@@ -35,7 +36,15 @@ export default {
       search: "",
     };
   },
-  methods: {},
+  methods: {
+    ...mapActions('items', ['setFilters']),
+    filter() {
+      const filters = {
+        name: this.search
+      }
+      this.setFilters(filters)
+    }
+  },
 };
 </script>
 
