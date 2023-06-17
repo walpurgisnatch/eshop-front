@@ -6,23 +6,33 @@
     mode="horizontal"
     router="true"
   >
-    <el-menu-item index="/">Home</el-menu-item>
-    <el-menu-item index="/articles">Articles</el-menu-item>
-    <el-menu-item class="right-one" index="/about">About</el-menu-item>
-    <el-menu-item index="/cart"><Cart /></el-menu-item>
+    <el-menu-item class="item" index="/">Home</el-menu-item>
+    <el-menu-item class="item" index="/articles">Articles</el-menu-item>
+    <el-menu-item class="item right-one" index="/about">About</el-menu-item>
+    <el-menu-item class="item">
+      <el-input v-model="search" class="search" placeholder="Type something">
+        <template #prefix>
+          <el-icon class="el-input__icon"><search /></el-icon>
+        </template>
+      </el-input>
+    </el-menu-item>
+    <el-menu-item class="item" index="/cart"><Cart /></el-menu-item>
   </el-menu>
 </template>
 
 <script>
 import Cart from "@/components/Cart.vue";
+import { Search } from "@element-plus/icons-vue";
 
 export default {
   components: {
     Cart,
+    Search,
   },
   data() {
     return {
       activeIndex: "Home",
+      search: "",
     };
   },
   methods: {},
@@ -42,7 +52,7 @@ export default {
 }
 
 .el-menu {
-  margin: 0 25% 50px !important;
+  margin: 0 15% 50px !important;
   background-color: transparent;
   justify-content: space-evenly;
 }
@@ -55,5 +65,15 @@ export default {
 
 .right-one {
   float: right !important;
+}
+
+.search {
+  width: 150px;
+  height: 40px;
+}
+
+.el-menu--horizontal > .el-menu-item {
+  height: 50px;
+  align-items: end;
 }
 </style>

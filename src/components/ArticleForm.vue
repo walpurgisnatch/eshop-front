@@ -1,13 +1,36 @@
 <template>
   <div>
     <el-input v-model="article.title" placeholder="Title" clearable />
-    <textarea v-model="article.body" class="body" />
+    <el-upload
+      v-model:file-list="fileList"
+      action="http://localhost:5000/api/items/photos"
+      list-type="picture-card"
+      :on-preview="handlePictureCardPreview"
+      :on-remove="handleRemove"
+      :on-success="onUpload"
+      class="uploader"
+    >
+      <el-icon><Plus /></el-icon>
+    </el-upload>
+    <el-dialog v-model="dialogVisible">
+      <img w-full :src="dialogImageUrl" alt="Preview Image" />
+    </el-dialog>
+    <div class="columns">
+      <el-input
+        v-model="article.body"
+        class="body"
+        :rows="25"
+        type="textarea"
+        placeholder="Body"
+      />
+    </div>
     <el-button type="primary" @click="submit">Create</el-button>
   </div>
 </template>
 
 <script>
 import EventService from "@/services/EventService.js";
+import { ref } from "vue";
 
 export default {
   data() {
@@ -15,14 +38,23 @@ export default {
       article: {
         title: "",
         body: "",
-        attachments: null
       },
+      fileList: [],
+      dialogImageUrl: ref(""),
+      dialogVisible: ref(false),
       rules: {
         body: [{ required: true, message: "Body required.", trigger: "blur" }],
       },
     };
   },
   methods: {
+    onChange() {
+      this.$emit('updateArticle', this.article)
+    },
+    onUpload() {
+     const name = this.fileList[this.fileList.length - 1].name
+      this.article.body += `![alt image](${name} "title")`;
+    },
     submit() {
       EventService.createArticle(this.article)
         .then((response) => {
@@ -37,8 +69,16 @@ export default {
           console.log("There was an error: ", error);
         });
     },
+    handleRemove(uploadFile, uploadFiles) {
+      console.log(uploadFile, uploadFiles);
+    },
+    handlePictureCardPreview(uploadFile) {
+      this.dialogImageUrl = uploadFile.url;
+      this.dialogVisible = true;
+    },
   },
-  computed: {  },
+  computed: {
+  },
 };
 </script>
 
@@ -64,5 +104,11 @@ export default {
   border: 1px solid #dfdfdf;
   border-radius: 7px;
   padding-right: 40px;
+}
+.uploader {
+  margin: 15px 0;
+}
+.columns {
+  display: flex;
 }
 </style>

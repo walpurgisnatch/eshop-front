@@ -12,7 +12,7 @@ const rules = [
   [/\n\d\.([^\n]+)/g, "<li>$1</li>"],
   [/\n\*\s([^\n]+)/g, "<li>$1</li>"],
   [/\n>\s([^\n]+)/g, "<blockquote>$1</blockquote>"],
-  [/!\[([^\]]+)\]\(([^)]+)\s"([^")]+)"\)/g, '<img src="$2" alt="$1" />'],
+  [/!\[([^\]]+)\]\(([^)]+)\s"([^")]+)"\)/g, '<img src="http://localhost:5000/api/photos/$2" alt="$1" style="display: block; margin: 0 auto;" />'],
   [/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>'],
   [/`([^`]+)`/g, "<code>$1</code>"],
   [/~~([^~]+)~~/g, "<del>$1</del>"],
@@ -22,7 +22,6 @@ const rules = [
 
 export default {
   beforeMount(el) {
-    console.log(el)
     if (el.textContent != "") {
       let html = el.textContent;
       rules.forEach(([rule, template]) => {
@@ -32,7 +31,6 @@ export default {
     }
   },
   updated(el) {
-    console.log(el)
     if (el.textContent != "") {
       let html = el.textContent;
       rules.forEach(([rule, template]) => {

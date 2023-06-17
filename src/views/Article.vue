@@ -2,14 +2,9 @@
   <div>
     <el-row :gutter="20">
       <el-col :offset="6" :span="12">
-        <h1 class="title">{{ article.title }}</h1>
-        <br />
-        <div v-markdown>
-          {{ article.body }}
-        </div>
-        <br />
+        <ArticleView :article="article"/>
         <hr />
-        <div>{{ commentsTotal }} Comments</div>
+        <div class="comments-total">{{ commentsTotal }} Comments</div>
         <br />
         <CommentForm :article="article.id" @updateComments="fetchComments" />
         <Comment
@@ -27,6 +22,7 @@
 import EventService from "@/services/EventService.js";
 import Comment from "@/components/Comment.vue";
 import CommentForm from "@/components/CommentForm.vue";
+import ArticleView from '@/components/ArticleView.vue';
 
 export default {
   props: ["id"],
@@ -40,6 +36,7 @@ export default {
   components: {
     Comment,
     CommentForm,
+    ArticleView
   },
   methods: {
     fetchComments() {
@@ -69,5 +66,11 @@ export default {
 <style scoped>
 .title {
   text-align: center;
+}
+.comments-total {
+  margin-bottom: 25px;
+}
+hr {
+  margin: 15px 0;
 }
 </style>

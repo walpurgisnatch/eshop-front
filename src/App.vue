@@ -19,22 +19,23 @@ export default {
     NotificationContainer,
     Footer
   },
-//   created() {
-//     const userString = localStorage.getItem("user");
-//     if (userString) {
-//       const userData = JSON.parse(userString);
-//       this.$store.dispatch('user/logIn', userData);
-//     }
-//     axios.interceptors.response.use(
-//       (response) => response,
-//       (error) => {
-//         if (error.response.status === 401) {
-//           this.$store.dispatch("user/logOut");
-//         }
-//         return Promise.reject(error);
-//       }
-//     );
-//   },
+  created() {
+    this.$store.dispatch('cart/getFromStorage')
+    // const userString = localStorage.getItem("user");
+    // if (userString) {
+    //   const userData = JSON.parse(userString);
+    //   this.$store.dispatch('user/logIn', userData);
+    // }
+    // axios.interceptors.response.use(
+    //   (response) => response,
+    //   (error) => {
+    //     if (error.response.status === 401) {
+    //       this.$store.dispatch("user/logOut");
+    //     }
+    //     return Promise.reject(error);
+    //   }
+    // );
+  },
 };
 </script>
 

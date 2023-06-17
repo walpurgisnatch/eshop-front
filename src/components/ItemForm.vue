@@ -6,7 +6,7 @@
     <el-form-item label="Description">
       <el-input
         v-model="item.description"
-        :rows="2"
+        :rows="10"
         type="textarea"
         placeholder=""
       />

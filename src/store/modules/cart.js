@@ -5,6 +5,9 @@ export const state = {
 };
 
 export const mutations = {
+  SET_ITEMS(state, items) {
+    state.items = items;
+  },
   PUSH_ITEM(state, item) {
     state.items.push(item);
   },
@@ -32,15 +35,25 @@ export const actions = {
       item.count = count;
       commit("PUSH_ITEM", item);
     }
+    localStorage.setItem("items", JSON.stringify(state.items));
   },
   changeCount({ commit }, { id, count }) {
     commit("SET_COUNT", { id, count });
+    localStorage.setItem("items", JSON.stringify(state.items));
   },
   removeItem({ commit }, id) {
     commit("REMOVE_ITEM", id);
+    localStorage.setItem("items", JSON.stringify(state.items));
   },
   clearItems({ commit }) {
     commit("CLEAR_ITEMS");
+    localStorage.removeItem("items");
+  },
+  getFromStorage({ commit }) {
+    const items = JSON.parse(localStorage.getItem("items"));
+    if (items) {
+      commit("SET_ITEMS", items);
+    }
   },
 };
 
@@ -50,5 +63,12 @@ export const getters = {
   },
   itemsCount(state) {
     return state.items.length;
+  },
+  totalCost(state) {
+    const cost = state.items.reduce((total, item) => {
+      return (total += item.cost * item.count);
+    }, 0);
+    console.log(cost);
+    return cost;
   },
 };
