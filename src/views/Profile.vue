@@ -30,12 +30,7 @@
           </el-row>
         </el-col>
         <el-col :span="12">
-          <ItemCard
-            v-for="item in items"
-            :key="item.id"
-            :item="item"
-            @updateItems="fetchItems"
-          />
+          <ItemCard v-for="item in items" :key="item.id" :item="item" @updateItems="fetchItems" />
         </el-col>
       </el-row>
     </div>
@@ -43,44 +38,43 @@
 </template>
 
 <script>
-import EventService from "@/services/EventService.js";
-import ItemCard from "@/components/ItemCard.vue"
-import SignIn from "@/components/SignIn";
+import EventService from '@/services/EventService.js'
+import ItemCard from '@/components/ItemCard.vue'
+import SignIn from '@/components/SignIn'
 // import SignUp from "@/components/SignUp";
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
   components: {
     SignIn,
     // SignUp,
-    ItemCard,
+    ItemCard
   },
   data() {
     return {
       items: [],
-      squareUrl:
-        "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
-    };
+      squareUrl: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'
+    }
   },
   methods: {
     logOut() {
-      this.$store.dispatch("user/logOut");
+      this.$store.dispatch('user/logOut')
     },
     fetchItems() {
       EventService.getItems()
         .then((response) => {
-          this.items = response.data;
+          this.items = response.data
         })
         .catch((error) => {
-          console.log("There was an error: " + error.response);
-        });
-    },
+          console.log('There was an error: ' + error.response)
+        })
+    }
   },
-  computed: mapState("user", ["user"]),
+  computed: mapState('user', ['user']),
   created() {
-    this.fetchItems();
-  },
-};
+    this.fetchItems()
+  }
+}
 </script>
 
 <style scoped>

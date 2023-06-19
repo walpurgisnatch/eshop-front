@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
-import NotificationContainer from "@/components/NotificationContainer.vue";
-import Footer from "@/components/Footer.vue"
+import NavBar from '@/components/NavBar.vue'
+import NotificationContainer from '@/components/NotificationContainer.vue'
+import Footer from '@/components/Footer.vue'
 // import axios from "axios";
 
 export default {
@@ -35,8 +35,8 @@ export default {
     //     return Promise.reject(error);
     //   }
     // );
-  },
-};
+  }
+}
 </script>
 
 <style>

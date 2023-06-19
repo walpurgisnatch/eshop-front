@@ -1,13 +1,7 @@
 <template>
   <div class="home">
     <el-row :gutter="20">
-      <ItemCard
-        class="itemCard"
-        v-for="item in items"
-        :key="item.id"
-        :item="item"
-        @updateItems="fetchItems"
-      />
+      <ItemCard class="itemCard" v-for="item in items" :key="item.id" :item="item" @updateItems="fetchItems" />
     </el-row>
     <el-pagination
       class="pagination"
@@ -21,32 +15,31 @@
 </template>
 
 <script>
-import ItemCard from "@/components/ItemCard.vue";
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
+import ItemCard from '@/components/ItemCard.vue'
+import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
-    ItemCard,
+    ItemCard
   },
   data() {
-    return {
-    };
+    return {}
   },
   methods: {
-    ...mapActions("items", ["fetchItems"]),
+    ...mapActions('items', ['fetchItems']),
     pagination(num) {
-      this.fetchItems(num);
-    },
+      this.fetchItems(num)
+    }
   },
   created() {
-    this.fetchItems(1);
+    this.fetchItems(1)
   },
   computed: {
-    ...mapGetters("items", ["items", "pages"]),
-  },
-};
+    ...mapGetters('items', ['items', 'pages'])
+  }
+}
 </script>
 
 <style scoped>

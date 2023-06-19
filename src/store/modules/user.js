@@ -10,9 +10,7 @@ export const mutations = {
   SET_DATA(state, user) {
     state.user = user
     localStorage.setItem('user', JSON.stringify(user))
-    axios.defaults.headers.common['Authorization'] = `Bearer ${
-      user.token
-    }`
+    axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`
   },
   LOG_OUT() {
     localStorage.removeItem('user')
@@ -33,7 +31,7 @@ export const actions = {
 }
 
 export const getters = {
-  loggedIn (state) {
+  loggedIn(state) {
     return !!state.user
   }
 }

@@ -21,40 +21,40 @@
 </template>
 
 <script>
-import ArticleCard from "@/components/ArticleCard.vue";
-import EventService from "@/services/EventService.js";
+import ArticleCard from '@/components/ArticleCard.vue'
+import EventService from '@/services/EventService.js'
 
 export default {
-  name: "Articles",
+  name: 'Articles',
   components: {
-    ArticleCard,
+    ArticleCard
   },
   data() {
     return {
       articles: [],
       pages: 2,
       pageSize: 5
-    };
+    }
   },
   methods: {
     fetchArticles(limit, offset) {
-      EventService.getArticles(limit, offset-1)
+      EventService.getArticles(limit, offset - 1)
         .then((response) => {
-          this.articles = response.data[0];
-          this.pages = response.data[1];
+          this.articles = response.data[0]
+          this.pages = response.data[1]
         })
         .catch((error) => {
-          console.log("There was an error: " + error);
-        });
+          console.log('There was an error: ' + error)
+        })
     },
     pagination(num) {
       this.fetchArticles(this.pageSize, num)
     }
   },
   created() {
-    this.fetchArticles(this.pageSize, 1);
-  },
-};
+    this.fetchArticles(this.pageSize, 1)
+  }
+}
 </script>
 
 <style scoped>

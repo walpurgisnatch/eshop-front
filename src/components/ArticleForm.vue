@@ -16,70 +16,63 @@
       <img w-full :src="dialogImageUrl" alt="Preview Image" />
     </el-dialog>
     <div class="columns">
-      <el-input
-        v-model="article.body"
-        class="body"
-        :rows="25"
-        type="textarea"
-        placeholder="Body"
-      />
+      <el-input v-model="article.body" class="body" :rows="25" type="textarea" placeholder="Body" />
     </div>
     <el-button type="primary" @click="submit">Create</el-button>
   </div>
 </template>
 
 <script>
-import EventService from "@/services/EventService.js";
-import { ref } from "vue";
+import EventService from '@/services/EventService.js'
+import { ref } from 'vue'
 
 export default {
   data() {
     return {
       article: {
-        title: "",
-        body: "",
+        title: '',
+        body: ''
       },
       fileList: [],
-      dialogImageUrl: ref(""),
+      dialogImageUrl: ref(''),
       dialogVisible: ref(false),
       rules: {
-        body: [{ required: true, message: "Body required.", trigger: "blur" }],
-      },
-    };
+        body: [{ required: true, message: 'Body required.', trigger: 'blur' }]
+      }
+    }
   },
   methods: {
     onChange() {
       this.$emit('updateArticle', this.article)
     },
     onUpload() {
-     const name = this.fileList[this.fileList.length - 1].name
-      this.article.body += `![alt image](${name} "title")`;
+      const name = this.fileList[this.fileList.length - 1].name
+      this.article.body += `![alt image](${name} "title")`
     },
     submit() {
       EventService.createArticle(this.article)
         .then((response) => {
           if (response.status == 201) {
             this.$router.push({
-              name: "Article",
-              params: { id: response.data },
-            });
+              name: 'Article',
+              params: { id: response.data }
+            })
           }
         })
         .catch((error) => {
-          console.log("There was an error: ", error);
-        });
+          console.log('There was an error: ', error)
+        })
     },
     handleRemove(uploadFile, uploadFiles) {
-      console.log(uploadFile, uploadFiles);
+      console.log(uploadFile, uploadFiles)
     },
     handlePictureCardPreview(uploadFile) {
-      this.dialogImageUrl = uploadFile.url;
-      this.dialogVisible = true;
-    },
+      this.dialogImageUrl = uploadFile.url
+      this.dialogVisible = true
+    }
   },
-  computed: {
-  },
-};
+  computed: {}
+}
 </script>
 
 <style scoped>

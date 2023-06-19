@@ -4,7 +4,7 @@
       <ShoppingCart v-if="itemsCount == 0" />
       <ShoppingCartFull v-else />
     </el-icon>
-    <div class='count'>{{ itemsCount }}</div>
+    <div class="count">{{ itemsCount }}</div>
   </el-row>
 </template>
 

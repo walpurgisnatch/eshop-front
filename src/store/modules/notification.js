@@ -14,9 +14,7 @@ export const mutations = {
     })
   },
   DELETE(state, notificationToRemove) {
-    state.notifications = state.notifications.filter(
-      notification => notification.id !== notificationToRemove.id
-    )
+    state.notifications = state.notifications.filter((notification) => notification.id !== notificationToRemove.id)
   }
 }
 

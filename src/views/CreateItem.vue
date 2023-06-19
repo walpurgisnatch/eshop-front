@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import ItemForm from "@/components/ItemForm.vue"
+import ItemForm from '@/components/ItemForm.vue'
 
 export default {
   components: {
-    ItemForm,
-  },
-};
+    ItemForm
+  }
+}
 </script>
 
 <style scoped></style>

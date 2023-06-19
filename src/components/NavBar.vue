@@ -1,11 +1,6 @@
 <template>
   <div class="banner"></div>
-  <el-menu
-    :default-active="activeIndex"
-    class="el-menu-demo"
-    mode="horizontal"
-    router="true"
-  >
+  <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" router="true">
     <el-menu-item class="item" index="/">Home</el-menu-item>
     <el-menu-item class="item" index="/articles">Articles</el-menu-item>
     <el-menu-item class="item right-one" index="/about">About</el-menu-item>
@@ -21,20 +16,20 @@
 </template>
 
 <script>
-import Cart from "@/components/Cart.vue";
-import { Search } from "@element-plus/icons-vue";
-import { mapActions } from 'vuex';
+import Cart from '@/components/Cart.vue'
+import { Search } from '@element-plus/icons-vue'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
     Cart,
-    Search,
+    Search
   },
   data() {
     return {
-      activeIndex: "Home",
-      search: "",
-    };
+      activeIndex: 'Home',
+      search: ''
+    }
   },
   methods: {
     ...mapActions('items', ['setFilters']),
@@ -44,13 +39,13 @@ export default {
       }
       this.setFilters(filters)
     }
-  },
-};
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 .banner {
-  background-image: url("@/assets/banner.jpg");
+  background-image: url('@/assets/banner.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

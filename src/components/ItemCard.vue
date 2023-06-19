@@ -1,10 +1,6 @@
 <template>
   <el-card class="box-card" shadow="hover" @click="handle" :item="item">
-    <el-image
-      class='image'
-      :src='item.thumbnail'
-      fit='cover'
-    />
+    <el-image class="image" :src="item.thumbnail" fit="cover" />
     <div class="cost">{{ item.cost }}</div>
     <div class="name">{{ item.name }}</div>
     <div class="icons">
@@ -20,22 +16,22 @@ import { mapActions } from 'vuex'
 
 export default {
   props: {
-    item: Object,
+    item: Object
   },
   data() {
-    return {};
+    return {}
   },
   methods: {
     handle() {
-      this.$router.push({ name: "Item", params: { id: this.item.id } });
+      this.$router.push({ name: 'Item', params: { id: this.item.id } })
     },
     toCart(e) {
       e.stopPropagation()
-      this.addItem({item: this.item})
+      this.addItem({ item: this.item })
     },
     ...mapActions('cart', ['addItem'])
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

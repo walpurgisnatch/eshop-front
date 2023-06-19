@@ -4,12 +4,7 @@
       <el-input v-model="item.name" placeholder="" clearable />
     </el-form-item>
     <el-form-item label="Description">
-      <el-input
-        v-model="item.description"
-        :rows="10"
-        type="textarea"
-        placeholder=""
-      />
+      <el-input v-model="item.description" :rows="10" type="textarea" placeholder="" />
     </el-form-item>
     <el-form-item label="Pictures">
       <el-upload
@@ -36,48 +31,48 @@
 </template>
 
 <script>
-import EventService from "@/services/EventService.js";
-import { ref } from "vue";
+import EventService from '@/services/EventService.js'
+import { ref } from 'vue'
 
 export default {
   data() {
     return {
       item: {
-        name: "",
-        description: "",
+        name: '',
+        description: '',
         cost: 0
       },
       fileList: [],
       dialogImageUrl: ref(''),
-      dialogVisible: ref(false),
-    };
+      dialogVisible: ref(false)
+    }
   },
   methods: {
     submit() {
-      this.item.pictures = this.fileList.map(f => f.name).join('; ')
+      this.item.pictures = this.fileList.map((f) => f.name).join('; ')
       EventService.createItem(this.item)
         .then((response) => {
           if (response.status == 201) {
             this.$router.push({
-              name: "Item",
-              params: { id: response.data },
-            });
+              name: 'Item',
+              params: { id: response.data }
+            })
           }
         })
         .catch((error) => {
-          console.log("There was an error: ", error);
-        });
+          console.log('There was an error: ', error)
+        })
     },
     handleRemove(uploadFile, uploadFiles) {
-      console.log(uploadFile, uploadFiles);
+      console.log(uploadFile, uploadFiles)
     },
     handlePictureCardPreview(uploadFile) {
-      this.dialogImageUrl = uploadFile.url;
-      this.dialogVisible = true;
-    },
+      this.dialogImageUrl = uploadFile.url
+      this.dialogVisible = true
+    }
   },
-  computed: {},
-};
+  computed: {}
+}
 </script>
 
 <style scoped>
